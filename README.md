@@ -1,31 +1,46 @@
 # Leicestershire Shared Reading — website redesign proposal
 
-A clean, static redesign of <https://www.leicestershiresharedreading.org/>, built to
+A clean redesign of <https://www.leicestershiresharedreading.org/>, built to
 present to the group for approval in principle. All content is drawn from the
-currently public Wix site; photography and the existing logo have been downloaded
-into `assets/` (re-upload to your own host before going live — see *Images*).
+currently public Wix site; photography and the existing logo have been
+downloaded into `assets/`.
 
-## Preview
+**Branches:**
+- `main` — the original flat-HTML mock (7 hand-written pages, no build step).
+- `demo-ssg` (this branch) — the same site rebuilt as an **Eleventy static site
+  generator** project: shared templates, Markdown news posts, and a GitHub
+  Actions workflow that rebuilds and publishes the site on every push.
+  Deployed for demoing at `https://goroboro.github.io/lsr-demo/`.
+
+## Build & preview (demo-ssg branch)
 
 ```bash
-cd LSR
-python3 -m http.server 8000
-# open http://localhost:8000
+npm install
+npm run serve     # http://localhost:8080 with live reload
+# or: npm run build  →  _site/  (what GitHub Actions builds and publishes)
 ```
 
-(Opening `index.html` directly also works, since the site is fully static.)
+## Content layout
 
-## Pages
-
-| File | Purpose |
+| Where | What |
 |---|---|
-| `index.html` | Home: hero, news strip, who we are, how it works, latest news, video corner, member quotes, what we read, volunteer CTA |
-| `what-happens.html` | What happens in a shared reading group |
-| `groups.html` | All nine groups (6 library, 3 Zoom) with times, addresses and booking notes |
-| `get-involved.html` | Three ways in: join a group, Reader Leader role + 5-step application, steering group (incl. Fundraising Leader vacancy) |
-| `report-example.html` | The sample group report extract |
-| `volunteers-area.html` | Placeholder for the future private volunteer area |
-| `contact.html` | Contact form (currently composes a pre-filled email; swap for a real endpoint later), phone numbers, Zoom-link help |
+| `src/index.html` | Home: hero, news strip, who we are, how it works, latest news (auto from `src/news/`), video corner, quotes, what we read, volunteer CTA |
+| `src/what-happens.html` | What happens in a shared reading group |
+| `src/groups.html` | All nine groups (6 library, 3 Zoom) with times, addresses and booking notes |
+| `src/get-involved.html` | Three ways in: join a group, Reader Leader role + 5-step application, steering group (incl. Fundraising Leader vacancy) |
+| `src/report-example.html` | The sample group report extract |
+| `src/volunteers-area.html` | Placeholder for the future private volunteer area |
+| `src/contact.html` | Contact form (currently composes a pre-filled email; swap for a real endpoint later), phone numbers, Zoom-link help |
+| `src/news/*.md` | **News posts — one Markdown file each.** New file = new item on the home page automatically (newest first) + its own page. `_template.md` is a fill-in example, never rendered. |
+| `src/_includes/base.njk` | Shared head, header/nav, footer (nav labels + footer text live here) |
+| `src/_includes/post.njk` | Layout every news post renders through |
+| `eleventy.config.js` | Build config (news collection, asset copy) |
+| `.github/workflows/deploy.yml` | Rebuild + publish to GitHub Pages on every push to `main` |
+| `UPDATING.md` | **The plain-English guide for non-technical volunteers** |
+
+The seven pages keep their `.html` URLs (e.g. `/groups.html`); news posts live
+at `/news/<slug>/`. All internal links are relative, so the site works on any
+host path (GitHub Pages, custom domain, etc.).
 
 ## Design language
 
@@ -61,8 +76,9 @@ python3 -m http.server 8000
   1. replace the file contents of `assets/img/logo-current.jpg` with a new file
      (e.g. export the SVG to PNG/JPG — the JPG chip treatment assumes a square-ish
      image with its own background), **or**
-  2. find-and-replace `src="assets/img/logo-current.jpg"` with
-     `src="assets/img/logo-fox.svg"` across the seven HTML pages.
+  2. find-and-replace `logo-current.jpg` with `logo-fox.svg` in
+     `src/_includes/base.njk` (two spots: header + footer) — on the `main`
+     branch the equivalent is across the seven HTML pages.
 
   The logo path appears in exactly two spots per page (header + footer).
 - Suggestion: have the fox re-cut by a designer as proper vector artwork before

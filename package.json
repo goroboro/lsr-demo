@@ -1,0 +1,13 @@
+{
+  "name": "lsr-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Leicestershire Shared Reading website — Eleventy static site",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

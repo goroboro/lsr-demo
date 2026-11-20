@@ -1,0 +1,102 @@
+{# Base layout: head, header/nav, footer shared by every page.
+   HTML pages use  {% extends "base.njk" %} + {% block content %}.
+   Markdown posts use  layout: post.njk  (which extends this). #}
+{# Relative-link prefix: news posts live one directory down (news/slug/),
+     so links from a post need "../" to reach the site root pages.
+     (Set before <head> so asset links can use it too.) #}
+{% set rel = "../../" if page.url and page.url.slice(0, 6) == "/news/" else "" %}
+{# page.fileSlug = filename without extension ("" on the home page);
+     used for the active nav item. #}
+{% set active = page.fileSlug %}
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title | default("Leicestershire Shared Reading") }}</title>
+  <meta name="description" content="{{ description | default('Free weekly shared reading groups across Leicestershire.') }}">
+  <link rel="icon" type="image/svg+xml" href="{{ rel }}assets/img/logo-fox.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ rel }}assets/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ rel }}index.html" aria-label="Leicestershire Shared Reading — home">
+        <img class="brand-logo" src="{{ rel }}assets/img/logo-current.jpg" alt="" width="52" height="44">
+        <span class="brand-text">Leicestershire<strong>SHARED READING</strong></span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        {% set nav = [
+          { url: "index.html",         key: "",                label: "Home" },
+          { url: "what-happens.html",  key: "what-happens",    label: "What happens" },
+          { url: "groups.html",        key: "groups",          label: "Our groups" },
+          { url: "get-involved.html",  key: "get-involved",    label: "Get involved" },
+          { url: "report-example.html",key: "report-example",  label: "A sample report" },
+          { url: "volunteers-area.html",key: "volunteers-area",label: "Volunteers&rsquo; area" }
+        ] %}
+        {% for item in nav %}
+        <a href="{{ rel }}{{ item.url }}"{% if active == item.key %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% endfor %}
+        <a href="{{ rel }}contact.html" class="btn-nav"{% if active == "contact" %} aria-current="page"{% endif %}>Contact us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="{{ rel }}assets/img/logo-current.jpg" alt="" width="46" height="39">
+          <span>Leicestershire<br>Shared Reading</span>
+        </div>
+        <p class="footer-lede">A voluntary organisation running free, weekly &lsquo;Make Friends, with a Book&rsquo; shared reading groups across Leicestershire, in partnership with the county&rsquo;s library service.</p>
+      </div>
+      <div>
+        <h3>Visit us</h3>
+        <ul>
+          <li><a href="{{ rel }}groups.html">Our groups</a></li>
+          <li><a href="{{ rel }}what-happens.html">What happens in a group</a></li>
+          <li><a href="{{ rel }}report-example.html">A sample group report</a></li>
+          <li><a href="{{ rel }}contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get involved</h3>
+        <ul>
+          <li><a href="{{ rel }}get-involved.html">Become a Reader Leader</a></li>
+          <li><a href="{{ rel }}get-involved.html#steering">Steering group</a></li>
+          <li><a href="{{ rel }}get-involved.html#apply">Apply for training</a></li>
+          <li><a href="{{ rel }}volunteers-area.html">Volunteers&rsquo; area</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:leicssharedreading@gmail.com">leicssharedreading@gmail.com</a></li>
+          <li>Nicky: 07415 125409</li>
+          <li>Ruth: 07940 817214</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Leicestershire Shared Reading &middot; a voluntary organisation, set up in 2016</p>
+        <p>Proud to follow the shared reading model developed by <a href="https://www.thereader.org.uk/" rel="noopener">The Reader</a></p>
+      </div>
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
