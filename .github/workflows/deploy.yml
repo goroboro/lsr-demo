@@ -27,11 +27,12 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # --omit=optional: skips fsevents (macOS-only file watcher, not needed to build)
+        run: npm ci --omit=optional
 
       - name: Build the site (Eleventy)
         run: npx eleventy
