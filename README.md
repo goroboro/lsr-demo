@@ -28,7 +28,7 @@ npm run serve     # http://localhost:8080 with live reload
 | `src/what-happens.html` | What happens in a shared reading group |
 | `src/groups.html` | All nine groups (6 library, 3 Zoom) with times, addresses and booking notes |
 | `src/get-involved.html` | Three ways in: join a group, Reader Leader role + 5-step application, steering group (incl. Fundraising Leader vacancy) |
-| `src/report-example.html` | The sample group report extract |
+| `src/_includes/sample-report.njk` | The sample group report — a component embedded on the Volunteer area page (`volunteers-area.html#sample-report`) |
 | `src/volunteers-area.html` | Placeholder for the future private volunteer area |
 | `src/contact.html` | Contact form (currently composes a pre-filled email; swap for a real endpoint later), phone numbers, Zoom-link help |
 | `src/news/*.md` | **News posts — one Markdown file each.** New file = new item on the home page automatically (newest first) + its own page. `_template.md` is a fill-in example, never rendered. |

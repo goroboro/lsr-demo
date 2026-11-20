@@ -28,7 +28,7 @@ version, so nothing is ever lost.
 | Group times, addresses, notes | `src/groups.html` |
 | "What happens in a group" text | `src/what-happens.html` |
 | Volunteering / roles / application steps | `src/get-involved.html` |
-| The sample group report | `src/report-example.html` |
+| The sample group report (on the Volunteer area page) | `src/_includes/sample-report.njk` |
 | Volunteer area placeholder text | `src/volunteers-area.html` |
 | Contact details / phones / email | `src/contact.html` **and** the footer in `src/_includes/base.njk` |
 | Site-wide text (footer, navigation labels) | `src/_includes/base.njk` |
