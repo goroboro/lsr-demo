@@ -2,7 +2,7 @@
 layout: post.njk
 title: "LSR reaches the finals of the 2026 VAL awards"
 date: 2026-10-01
-badge: "October 2026"
+badge: "October 2026 (live test)"
 description: "LSR made the final four in the Volunteer-Led Organisation of the Year category at the 2026 VAL Volunteer Awards — recognition for all of our volunteers."
 permalink: news/{{ page.fileSlug }}/
 ---
